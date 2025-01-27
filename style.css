@@ -88,12 +88,29 @@ nav h3{
     border-radius: 20%;
     border: none;
     background: none;
+    cursor: pointer;
 }
 .delBtn:hover{
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(240, 212, 212);
+}
+.delBtn img{
+    width: 17px;
+    margin: 4px
 }
 
-.delBtn img{
+.editBtn{
+    display: flex;
+    position: absolute;
+    right: 230px;
+    border-radius: 20%;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.editBtn:hover{
+    background-color: rgb(240, 240, 240);
+}
+.editBtn img{
     width: 16px;
     margin: 4px
 }
@@ -184,4 +201,10 @@ nav h3{
 .addTask{
     background: orangered;
     cursor: pointer;
+}
+
+#displayPrioritas {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #333;
 }

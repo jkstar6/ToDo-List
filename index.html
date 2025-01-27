@@ -9,7 +9,7 @@
 <body>
     <nav class="nav">
         <h3>PROJECT ITC</h3>
-        <ulv class="ul-nav">
+        <ul class="ul-nav">
             <li class="li-todo">ToDo-List</li>
         </ul>
     </nav>
@@ -18,7 +18,7 @@
             <input id="inputJudul" type="text" placeholder="Ada rencana apa?"><br>
             <input id="inputDeskripsi" type="text" placeholder="Deskripsi"><br>
             <input id="inputTanggal" type="date">
-            <select name="" id="inputPrioritas" place>
+            <select name="" id="inputPrioritas">
                 <option value="1">Priority 1</option>
                 <option value="2">Priority 2</option>
                 <option value="3">Priority 3</option>
@@ -75,6 +75,7 @@
         }
         const fclosePopup = () => {
             popup.style.display = 'none'
+            resetForm()
         }
 
         addBtn.addEventListener('click', fpopup)
@@ -87,29 +88,34 @@
         let inputPrioritas = document.getElementById('inputPrioritas')
         let addTask = document.querySelector('.addTask')
         let div_item = document.querySelector('.div_item')
-        let btnContainer = document.querySelector('.btnContainer')
+        let editID = null
+        let editPrio = null
 
         function addData() {
-            const newRef = ref(db, 'todo/' + inputPrioritas.value)
-            const newChildRef = push(newRef)
+            if (editID) {
+                editData(editID, editPrio)
+            } else {
+                const newRef = ref(db, 'todo/' + inputPrioritas.value)
+                const newChildRef = push(newRef)
 
-            set(newChildRef, {
-                Judul: inputJudul.value,
-                Deskripsi: inputDeskripsi.value,
-                Tanggal: inputTanggal.value,
-                Prioritas: inputPrioritas.value
-            })
-            .then(() => {
-                fclosePopup()
-                inputJudul.value = ''
-                inputDeskripsi.value = ''
-                inputTanggal.value = ''
-                inputPrioritas.value = '1'
-                showData()
-            })
-            .catch((error) => {
-                alert(error.message)
-            })
+                set(newChildRef, {
+                    Judul: inputJudul.value,
+                    Deskripsi: inputDeskripsi.value,
+                    Tanggal: inputTanggal.value,
+                    Prioritas: inputPrioritas.value
+                })
+                .then(() => {
+                    fclosePopup()
+                    inputJudul.value = ''
+                    inputDeskripsi.value = ''
+                    inputTanggal.value = ''
+                    inputPrioritas.value = '1'
+                    showData()
+                })
+                .catch((error) => {
+                    alert(error.message)
+                })   
+            }
         }
 
         function getData(catchChild) {
@@ -134,21 +140,44 @@
             // tombol hapus
             let buttonDel = document.createElement('button')
             let imgDel = document.createElement('img')
-            imgDel.src = './img/icons-delete.png'
+            imgDel.src = './img/icons-delete-button.png'
             buttonDel.classList.add('delBtn')
+            buttonDel.onclick = function () {
+                if(confirm('anda yakin ingin menghapus tugas?')) {
+                    remove(ref(db, 'todo/' + value.Prioritas + '/' + key))
+                    .then(() => {
+                        showData()
+                    })
+                    .catch((error) => {
+                        alert(error.message)
+                    })
+                }
+            }
 
-
-
-
-
+            // tombol edit
+            let buttonEdit = document.createElement('button')
+            let imgEdit = document.createElement('img')
+            imgEdit.src = './img/icons-edit.png'
+            buttonEdit.classList.add('editBtn')
+            buttonEdit.onclick = function() {
+                fpopup()
+                inputJudul.value = value.Judul
+                inputDeskripsi.value = value.Deskripsi
+                inputTanggal.value = value.Tanggal
+                editID = key
+                editPrio = value.Prioritas
+                addTask.textContent = 'Update'
+            }
 
             ul.appendChild(garis)
             ul.appendChild(prioritas)
             ul.appendChild(buttonDel)
+            ul.appendChild(buttonEdit)
             ul.appendChild(judul)
             ul.appendChild(deskripsi)
             ul.appendChild(tanggal)
             buttonDel.appendChild(imgDel)
+            buttonEdit.appendChild(imgEdit)
             div_item.appendChild(ul)
         }
 
@@ -171,6 +200,59 @@
                     console.log(error.message)
                 })
             }
+        }
+
+        function editData(id, prio) {
+            let newPrio = inputPrioritas.value
+
+            if (newPrio !== prio) {
+                remove(ref(db, 'todo/' + prio + '/' +id))
+                .then(() => {
+                    const newRef = ref(db, 'todo/' + inputPrioritas.value)
+                    const newChildRef = push(newRef)
+
+                    set(newChildRef, {
+                        Judul: inputJudul.value,
+                        Deskripsi: inputDeskripsi.value,
+                        Tanggal: inputTanggal.value,
+                        Prioritas: inputPrioritas.value
+                    })
+                    .then(() => {
+                        alert('Data berhasil diperbarui')
+                        fclosePopup()
+                        resetForm()
+                        showData()
+                    })
+                    .catch((error) => {
+                        alert(error.message)
+                    }) 
+                })
+            } else {
+                update(ref(db, 'todo/' + prio + '/' + id), {
+                    Judul: inputJudul.value,
+                    Deskripsi: inputDeskripsi.value,
+                    Tanggal: inputTanggal.value
+                })
+                .then(() => {
+                    alert('Data berhasil diperbarui')
+                    fclosePopup()
+                    resetForm()
+                    showData()
+                })
+                .catch((error) => {
+                    alert(error.message)
+                })
+            }
+        }
+
+        function resetForm() {
+            inputJudul.value = ''
+            inputDeskripsi.value = ''
+            inputTanggal.value = ''
+            inputPrioritas.value = '1'
+            addTask.textContent = 'Add task'
+            editID = null
+            editPrio = null
         }
 
         addTask.addEventListener('click', addData)
