@@ -1,0 +1,164 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body{
+    display: flex;
+    height: 100vh;
+}
+.nav, .container{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+.nav{
+    height: 100vh;
+    float: left;
+    flex: 0.24;
+    padding: 20px 0 0 0px;
+    background-color: antiquewhite;
+}
+nav h3{
+    padding-left: 20px;
+}
+.li-todo{
+    background-color: rgb(255, 214, 161);
+    padding: 8px 10px;
+    border-radius: 5px;
+}
+.li-todo:hover{
+    background-color: rgb(255, 201, 130);
+}
+.ul-nav{
+    margin: 20px 0 0 0px;
+    padding: 0 20px;
+    list-style-type: none;
+}
+.container{
+    height: 100vh;
+    padding: 50px 200px 50px 200px;
+    float: left;
+    flex: 0.76;
+}
+#addBtn span{
+    color: orange;
+    font-size: 30px;
+    font-weight: 100;
+    padding-bottom: 8px;
+}
+#addBtn{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    text-align: start;
+    gap: 5px;
+    width: fit-content;
+    height: 30px;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+#addBtn:hover{
+    color: orange;
+}
+.ul-item{
+    list-style-type: none;
+}
+.line{
+    background-color: rgb(218, 218, 218);
+    padding: 1px;
+    width: 100%;
+    margin: 0 0 10px 0;
+}
+
+/* popup add */
+
+.popup{
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content{
+    height: 170px;
+    width: 700px;
+    background: white;
+    border-radius: 8px;
+    position: relative;
+    bottom: 50px;
+    padding: 0px;
+}
+
+.close{
+    cursor: pointer;
+}
+
+.close:hover{
+    background: rgb(141, 141, 141);
+}
+
+#inputJudul, #inputDeskripsi{
+    margin-left: 10px;
+    border: none;
+    width: 90%;
+    outline: none;
+}
+
+#inputJudul{
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+#inputDeskripsi{
+    margin-bottom: 15px;
+}
+
+#inputTanggal, #inputPrioritas{
+    margin-left: 10px;
+    border: 1px solid silver;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #333;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    outline: none;
+}
+
+#inputTanggal:hover, #inputPrioritas:hover{
+    background-color: #e0e0e0;
+}
+
+#inputTanggal{
+    width: 25%;
+}
+
+.lineForm{
+    background-color: rgb(218, 218, 218);
+    padding: 0.5px;
+    width: 100%;
+    margin: 14px 0 0 0;
+}
+
+.actBtn{
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+}
+
+.actBtn button{
+    border: none;
+    border-radius: 5px;
+    padding: 5px 5px;
+}
+
+.addTask{
+    background: orangered;
+    cursor: pointer;
+}
