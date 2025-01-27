@@ -13,20 +13,11 @@
             <li class="li-todo">ToDo-List</li>
         </ul>
     </nav>
-    <div class="container">
-        <h1>Your task</h1>
-        <button id="addBtn" class="addBtn"><span>+</span> Add task</button>
-        <ul class="ul-item">
-            <li class="line"></li>
-            <li><h3>judul</h3></li>
-            <li>isinya ada disini</li>
-        </ul>
-    </div>
     <div class="popup">
         <div class="popup-content">
             <input id="inputJudul" type="text" placeholder="Ada rencana apa?"><br>
             <input id="inputDeskripsi" type="text" placeholder="Deskripsi"><br>
-            <input id="inputTanggal" type="datetime-local">
+            <input id="inputTanggal" type="date">
             <select name="" id="inputPrioritas" place>
                 <option value="1">Priority 1</option>
                 <option value="2">Priority 2</option>
@@ -38,6 +29,13 @@
                 <button class="addTask">Add task</button>
             </div>
         </div>
+    </div>
+    <div class="container">
+        <h1>Your task</h1>
+        <button id="addBtn" class="addBtn"><span>+</span> Add task</button>
+        <ul class="ul_item">
+
+        </ul>
     </div>
 
     <script type="module">
@@ -89,6 +87,8 @@
         let inputPrioritas = document.getElementById('inputPrioritas')
         let addTask = document.querySelector('.addTask')
 
+        let ul_item = document.querySelector('.ul_item')
+
         function addData() {
             const newRef = ref(db, 'todo/' + inputPrioritas.value)
             const newChildRef = push(newRef)
@@ -96,7 +96,8 @@
             set(newChildRef, {
                 Judul: inputJudul.value,
                 Deskripsi: inputDeskripsi.value,
-                Tanggal: inputTanggal.value
+                Tanggal: inputTanggal.value,
+                Prioritas: inputPrioritas.value
             })
             .then(() => {
                 fclosePopup()
@@ -104,14 +105,56 @@
                 inputDeskripsi.value = ''
                 inputTanggal.value = ''
                 inputPrioritas.value = '1'
-                alert('data berhasil ditambahkan')
+                showData()
             })
             .catch((error) => {
                 alert(error.message)
             })
         }
 
+        function getData(catchChild) {
+            const key = catchChild.key
+            const value = catchChild.val()
+
+            let ul = document.createElement('ul')
+            let garis = document.createElement('li')
+            let judul = document.createElement('h3')
+            let deskripsi = document.createElement('li')
+            let tanggal = document.createElement('li')
+
+            judul.innerHTML = value.Judul
+            deskripsi.innerHTML = value.Deskripsi
+            tanggal.innerHTML = value.Tanggal
+
+            garis.classList.add('line')
+
+            ul.appendChild(garis)
+            ul.appendChild(judul)
+            ul.appendChild(deskripsi)
+            ul.appendChild(tanggal)
+            ul_item.appendChild(ul)
+        }
+
+        function showData() {
+            const dbref = ref(db)
+            ul_item.innerHTML = ''
+            get(child(dbref, 'todo/' + 1))
+            .then((snap) => {
+                if (snap.exists()) {
+                    snap.forEach((child) => {
+                        getData(child)
+                    })
+                } else {
+                    console.log('data tidak ditemukan')
+                }
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
+        }
+
         addTask.addEventListener('click', addData)
+        window.addEventListener('load', showData)
       </script>
 </body>
 </html>
