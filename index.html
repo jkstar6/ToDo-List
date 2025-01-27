@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>project ITC</title>
+</head>
+<body>
+    <nav class="nav">
+        <h3>PROJECT ITC</h3>
+        <ulv class="ul-nav">
+            <li class="li-todo">ToDo-List</li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Your task</h1>
+        <button id="addBtn" class="addBtn"><span>+</span> Add task</button>
+        <ul class="ul-item">
+            <li class="line"></li>
+            <li><h3>judul</h3></li>
+            <li>isinya ada disini</li>
+        </ul>
+    </div>
+    <div class="popup">
+        <div class="popup-content">
+            <input id="inputJudul" type="text" placeholder="Ada rencana apa?"><br>
+            <input id="inputDeskripsi" type="text" placeholder="Deskripsi"><br>
+            <input id="inputTanggal" type="datetime-local">
+            <select name="" id="inputPrioritas" place>
+                <option value="1">Priority 1</option>
+                <option value="2">Priority 2</option>
+                <option value="3">Priority 3</option>
+            </select>
+            <div class="lineForm"></div>
+            <div class="actBtn">
+                <button class="close">Cancel</button>
+                <button class="addTask">Add task</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAnxJYWHC6IHdlfsPQ741CeHwCTxIAfWpY",
+          authDomain: "todolistapp-f6136.firebaseapp.com",
+          databaseURL: "https://todolistapp-f6136-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "todolistapp-f6136",
+          storageBucket: "todolistapp-f6136.firebasestorage.app",
+          messagingSenderId: "257162621559",
+          appId: "1:257162621559:web:5fd03a1c84718887aa4c72"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        // =============================================================
+
+        import {getDatabase, set, push, get, update, remove, ref, child}
+        from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js"
+
+        const db = getDatabase()
+
+        // popup addBtn
+        const addBtn = document.getElementById('addBtn')
+        const popup = document.querySelector('.popup')
+        const closeBtn = document.querySelector('.close')
+
+        const fpopup = () => {
+            popup.style.display = 'flex'
+        }
+        const fclosePopup = () => {
+            popup.style.display = 'none'
+        }
+
+        addBtn.addEventListener('click', fpopup)
+        closeBtn.addEventListener('click', fclosePopup)
+
+        // CRUD
+        let inputJudul = document.getElementById('inputJudul')
+        let inputDeskripsi = document.getElementById('inputDeskripsi')
+        let inputTanggal = document.getElementById('inputTanggal')
+        let inputPrioritas = document.getElementById('inputPrioritas')
+        let addTask = document.querySelector('.addTask')
+
+        function addData() {
+            const newRef = ref(db, 'todo/' + inputPrioritas.value)
+            const newChildRef = push(newRef)
+
+            set(newChildRef, {
+                Judul: inputJudul.value,
+                Deskripsi: inputDeskripsi.value,
+                Tanggal: inputTanggal.value
+            })
+            .then(() => {
+                fclosePopup()
+                inputJudul.value = ''
+                inputDeskripsi.value = ''
+                inputTanggal.value = ''
+                inputPrioritas.value = '1'
+                alert('data berhasil ditambahkan')
+            })
+            .catch((error) => {
+                alert(error.message)
+            })
+        }
+
+        addTask.addEventListener('click', addData)
+      </script>
+</body>
+</html>
