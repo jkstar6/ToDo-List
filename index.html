@@ -124,9 +124,10 @@
 
             judul.innerHTML = value.Judul
             deskripsi.innerHTML = value.Deskripsi
-            tanggal.innerHTML = value.Tanggal
+            tanggal.innerHTML = 'untuk tanggal ' + value.Tanggal
 
             garis.classList.add('line')
+            tanggal.classList.add('date')
 
             ul.appendChild(garis)
             ul.appendChild(judul)
@@ -138,19 +139,22 @@
         function showData() {
             const dbref = ref(db)
             ul_item.innerHTML = ''
-            get(child(dbref, 'todo/' + 1))
-            .then((snap) => {
-                if (snap.exists()) {
-                    snap.forEach((child) => {
-                        getData(child)
-                    })
-                } else {
-                    console.log('data tidak ditemukan')
-                }
-            })
-            .catch((error) => {
-                console.log(error.message)
-            })
+            
+            for (let prio = 1; prio <= 3; prio++) {
+                get(child(dbref, 'todo/' + prio))
+                .then((snap) => {
+                    if (snap.exists()) {
+                        snap.forEach((child) => {
+                            getData(child)
+                        })
+                    } else {
+                        console.log('data tidak ditemukan')
+                    }
+                })
+                .catch((error) => {
+                    console.log(error.message)
+                })
+            }
         }
 
         addTask.addEventListener('click', addData)
