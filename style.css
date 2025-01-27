@@ -65,11 +65,21 @@ nav h3{
 .ul_item li{
     list-style-type: none;
 }
+.ul_item p{
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+    left: 720px;
+    bottom: 65px;
+    border: 1px solid orangered;
+    border-radius: 15px;
+    width: 70px;
+}
 .line{
     background-color: rgb(218, 218, 218);
     padding: 0.5px;
     width: 100%;
-    margin: 10px 0 5px 0;
+    margin: 0 0 5px 0;
 }
 
 /* popup add */
@@ -135,8 +145,6 @@ nav h3{
     background-color: #e0e0e0;
 }
 
-#inputTanggal{
-}
 
 .lineForm{
     background-color: rgb(218, 218, 218);

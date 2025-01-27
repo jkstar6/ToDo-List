@@ -121,10 +121,12 @@
             let judul = document.createElement('h3')
             let deskripsi = document.createElement('li')
             let tanggal = document.createElement('li')
+            let prioritas = document.createElement('p')
 
             judul.innerHTML = value.Judul
             deskripsi.innerHTML = value.Deskripsi
             tanggal.innerHTML = 'untuk tanggal ' + value.Tanggal
+            prioritas.innerHTML = 'Priority ' + value.Prioritas
 
             garis.classList.add('line')
             tanggal.classList.add('date')
@@ -133,6 +135,7 @@
             ul.appendChild(judul)
             ul.appendChild(deskripsi)
             ul.appendChild(tanggal)
+            ul.appendChild(prioritas)
             ul_item.appendChild(ul)
         }
 
