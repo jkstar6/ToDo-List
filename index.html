@@ -86,8 +86,10 @@
         let inputTanggal = document.getElementById('inputTanggal')
         let inputPrioritas = document.getElementById('inputPrioritas')
         let addTask = document.querySelector('.addTask')
-
         let ul_item = document.querySelector('.ul_item')
+
+        const delIcon = document.createElement('delIcon')
+        delIcon.src = 'img/'
 
         function addData() {
             const newRef = ref(db, 'todo/' + inputPrioritas.value)
@@ -127,6 +129,9 @@
             deskripsi.innerHTML = value.Deskripsi
             tanggal.innerHTML = 'untuk tanggal ' + value.Tanggal
             prioritas.innerHTML = 'Priority ' + value.Prioritas
+
+            let deleteBtn = document.createElement('button')
+            deleteBtn.textContent = 'delete'
 
             garis.classList.add('line')
             tanggal.classList.add('date')
