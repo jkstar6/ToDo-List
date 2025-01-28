@@ -48,6 +48,7 @@ let inputPrioritas = document.getElementById('inputPrioritas')
 let addTask = document.querySelector('.addTask')
 let div_item = document.querySelector('.div_item')
 let div_done = document.querySelector('.div_done')
+let h2 = document.createElement('h2')
 let editID = null
 let editPrio = null
 
@@ -183,6 +184,7 @@ function getData(catchChild) {
     buttonDel.appendChild(imgDel)
     buttonEdit.appendChild(imgEdit)
     div_item.appendChild(ul)
+    div_done.appendChild(h2)
 }
 
 function checkData(id, prio, up) {
@@ -232,7 +234,6 @@ function getDataDone(catchChild) {
     const key = catchChild.key
     const value = catchChild.val()
 
-    let h2 = document.createElement('h2')
     let ul = document.createElement('ul')
     let garis = document.createElement('li')
     let judul = document.createElement('h3')
@@ -283,7 +284,6 @@ function getDataDone(catchChild) {
     ul.appendChild(deskripsi)
     ul.appendChild(tanggal)
     buttonDel.appendChild(imgDel)
-    div_done.appendChild(h2)
     div_done.appendChild(ul)
 }
 
