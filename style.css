@@ -3,46 +3,58 @@
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 body{
     display: flex;
     height: 100vh;
+    background: #18181A;
+    color: #FFFFFF;
 }
+
 .nav, .container{
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
 }
+
 .nav{
     height: 100vh;
     float: left;
     flex: 0.24;
     padding: 20px 0 0 0px;
-    background-color: antiquewhite;
+    background-color: #151516;
 }
+
 nav h3{
     padding-left: 20px;
+    color: #46BAC0;
 }
+
 .li-todo{
-    background-color: rgb(255, 214, 161);
+    background-color: #46BAC0;
     padding: 8px 10px;
     border-radius: 5px;
 }
+
 .li-todo:hover{
-    background-color: rgb(255, 201, 130);
+    background-color: #FFFFFF;
 }
+
 .ul-nav{
     margin: 20px 0 0 0px;
     padding: 0 20px;
     list-style-type: none;
 }
+
 .container{
     height: 100vh;
     padding: 50px 200px 50px 200px;
     float: left;
     flex: 0.76;
 }
+
 #addBtn span{
-    color: orange;
+    color: #E4609B;
     font-size: 30px;
     font-weight: 100;
     padding-bottom: 8px;
@@ -56,25 +68,39 @@ nav h3{
     width: fit-content;
     height: 30px;
     border: none;
-    background-color: white;
+    background-color: #18181A;
+    color: #FFFFFF;
     cursor: pointer;
 }
 #addBtn:hover{
-    color: orange;
+    color: #46BAC0;
 }
+
 .div_item li{
     list-style-type: none;
 }
+
 .div_item p{
-    margin-top: 1.5px;
+    padding: 1px;
+    margin-top: 2px;
     font-size: 14px;
     text-align: center;
     position: absolute;
     right: 270px;
-    border: 1px solid orangered;
+    border: 1px solid #E4609B;
     border-radius: 15px;
-    width: 70px;
+    width: 75px;
 }
+
+.div_item h3{
+    color: #46BAC0;
+}
+
+.div_item .date{
+    font-weight: 150;
+    font-size: 14px;
+}
+
 .line{
     background-color: rgb(218, 218, 218);
     padding: 0.5px;
@@ -92,10 +118,10 @@ nav h3{
     cursor: pointer;
 }
 .delBtn:hover{
-    background-color: rgb(240, 212, 212);
+    background-color: #FFFFFF;
 }
 .delBtn img{
-    width: 17px;
+    width: 19px;
     margin: 4px
 }
 
@@ -109,22 +135,18 @@ nav h3{
     cursor: pointer;
 }
 .editBtn:hover{
-    background-color: rgb(240, 240, 240);
+    background-color: #FFFFFF;
 }
 .editBtn img{
-    width: 16px;
+    width: 18px;
     margin: 4px
-}
-
-.container h2{
-    margin-top: 100px;
 }
 
 .checkBtn{
     appearance: none;
     width: 14px;
     height: 14px;
-    border: 1px solid black;
+    border: 1px solid #46BAC0;
     border-radius: 50%;
     margin-top: 15px;
     position: absolute;
@@ -133,6 +155,7 @@ nav h3{
 }
 
 .checkBtn:checked::after{
+    color: #FFFFFF;
     content: "✔";
     position: relative;
     bottom: 3px;
@@ -141,21 +164,37 @@ nav h3{
 
 .checkBtn:disabled{
     cursor: not-allowed;
-    opacity: 0.5;
+}
+
+.container h2{
+    margin-top: 60px;
 }
 
 .div_done li{
     list-style-type: none;
+    text-decoration: line-through;
 }
 .div_done p{
-    margin-top: 1.5px;
+    padding: 1px;
+    margin-top: 2px;
     font-size: 14px;
     text-align: center;
     position: absolute;
-    right: 270px;
-    border: 1px solid orangered;
+    right: 240px;
+    border: 1.5px solid #46BAC0;
     border-radius: 15px;
-    width: 70px;
+    width: 60px;
+}
+
+.div_done h3{
+    color: #46BAC0;
+    text-decoration: line-through;
+}
+
+.div_done .date{
+    font-weight: 150;
+    font-size: 14px;
+    text-decoration: line-through;
 }
 
 /* popup add */
@@ -175,7 +214,7 @@ nav h3{
 .popup-content{
     height: 170px;
     width: 700px;
-    background: white;
+    background: #18181A;
     border-radius: 8px;
     position: relative;
     bottom: 50px;
@@ -184,10 +223,11 @@ nav h3{
 
 .close{
     cursor: pointer;
+    background-color: #FFFFFF;
 }
 
 .close:hover{
-    background: rgb(141, 141, 141);
+    background: #e9e9e9;
 }
 
 #inputJudul, #inputDeskripsi{
@@ -195,11 +235,23 @@ nav h3{
     border: none;
     width: 90%;
     outline: none;
+    background-color: #18181A;
+    color: #FFFFFF;
 }
 
 #inputJudul{
+    font-weight: 600;
     margin-top: 10px;
     font-size: 20px;
+}
+
+#inputJudul::placeholder{
+    font-weight: 600;
+    color: #e9e9e9;
+}
+
+#inputDeskripsi::placeholder{
+    color: #e9e9e9;
 }
 
 #inputDeskripsi{
@@ -208,18 +260,18 @@ nav h3{
 
 #inputTanggal, #inputPrioritas{
     margin-left: 10px;
-    border: 1px solid silver;
+    border: none;
     border-radius: 5px;
     padding: 5px 10px;
     font-size: 14px;
-    color: #333;
-    background-color: #f9f9f9;
+    color: #FFFFFF;
+    background-color: #46BAC0;
     cursor: pointer;
     outline: none;
 }
 
 #inputTanggal:hover, #inputPrioritas:hover{
-    background-color: #e0e0e0;
+    background-color: #FFFFFF;
 }
 
 
@@ -243,8 +295,12 @@ nav h3{
 }
 
 .addTask{
-    background: orangered;
+    background: #E4609B;
     cursor: pointer;
+}
+
+.addTask:hover{
+    background: #e9e9e9;
 }
 
 #displayPrioritas {
