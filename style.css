@@ -116,6 +116,10 @@ nav h3{
     margin: 4px
 }
 
+.container h2{
+    margin-top: 100px;
+}
+
 .checkBtn{
     appearance: none;
     width: 14px;
@@ -134,9 +138,6 @@ nav h3{
     right: 0px;
 }
 
-.div_done{
-    padding-top: 100px;
-}
 .div_done li{
     list-style-type: none;
 }
