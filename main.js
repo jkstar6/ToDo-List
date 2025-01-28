@@ -1,18 +1,218 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAnxJYWHC6IHdlfsPQ741CeHwCTxIAfWpY",
+  authDomain: "todolistapp-f6136.firebaseapp.com",
+  databaseURL: "https://todolistapp-f6136-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "todolistapp-f6136",
+  storageBucket: "todolistapp-f6136.firebasestorage.app",
+  messagingSenderId: "257162621559",
+  appId: "1:257162621559:web:5fd03a1c84718887aa4c72"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// =============================================================
+
+import {getDatabase, set, push, get, update, remove, ref, child}
+from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js"
+
 const db = getDatabase()
 
-console.log(addBtn, popup, closeBtn);
-
-// popup
+// popup addBtn
 const addBtn = document.getElementById('addBtn')
 const popup = document.querySelector('.popup')
 const closeBtn = document.querySelector('.close')
 
-addBtn.addEventListener('click', function() {
-    console.log('Add button clicked')
+const fpopup = () => {
     popup.style.display = 'flex'
-})
-
-closeBtn.addEventListener('click', function() {
-    console.log('Close button clicked')
+}
+const fclosePopup = () => {
     popup.style.display = 'none'
-})
+    resetForm()
+}
+
+addBtn.addEventListener('click', fpopup)
+closeBtn.addEventListener('click', fclosePopup)
+
+// CRUD
+let inputJudul = document.getElementById('inputJudul')
+let inputDeskripsi = document.getElementById('inputDeskripsi')
+let inputTanggal = document.getElementById('inputTanggal')
+let inputPrioritas = document.getElementById('inputPrioritas')
+let addTask = document.querySelector('.addTask')
+let div_item = document.querySelector('.div_item')
+let editID = null
+let editPrio = null
+
+function addData() {
+    if (editID) {
+        editData(editID, editPrio)
+    } else {
+        const newRef = ref(db, 'todo/' + inputPrioritas.value)
+        const newChildRef = push(newRef)
+
+        set(newChildRef, {
+            Judul: inputJudul.value,
+            Deskripsi: inputDeskripsi.value,
+            Tanggal: inputTanggal.value,
+            Prioritas: inputPrioritas.value
+        })
+        .then(() => {
+            fclosePopup()
+            inputJudul.value = ''
+            inputDeskripsi.value = ''
+            inputTanggal.value = ''
+            inputPrioritas.value = '1'
+            showData()
+        })
+        .catch((error) => {
+            alert(error.message)
+        })   
+    }
+}
+
+function getData(catchChild) {
+    const key = catchChild.key
+    const value = catchChild.val()
+
+    let ul = document.createElement('ul')
+    let garis = document.createElement('li')
+    let judul = document.createElement('h3')
+    let deskripsi = document.createElement('li')
+    let tanggal = document.createElement('li')
+    let prioritas = document.createElement('p')
+    
+    judul.innerHTML = value.Judul
+    deskripsi.innerHTML = value.Deskripsi
+    tanggal.innerHTML = 'untuk tanggal ' + value.Tanggal
+    prioritas.innerHTML = 'Priority ' + value.Prioritas
+
+    garis.classList.add('line')
+    tanggal.classList.add('date')
+
+    // tombol hapus
+    let buttonDel = document.createElement('button')
+    let imgDel = document.createElement('img')
+    imgDel.src = './img/icons-delete-button.png'
+    buttonDel.classList.add('delBtn')
+    buttonDel.onclick = function () {
+        if(confirm('anda yakin ingin menghapus tugas?')) {
+            remove(ref(db, 'todo/' + value.Prioritas + '/' + key))
+            .then(() => {
+                showData()
+            })
+            .catch((error) => {
+                alert(error.message)
+            })
+        }
+    }
+
+    // tombol edit
+    let buttonEdit = document.createElement('button')
+    let imgEdit = document.createElement('img')
+    imgEdit.src = './img/icons-edit.png'
+    buttonEdit.classList.add('editBtn')
+    buttonEdit.onclick = function() {
+        fpopup()
+        inputJudul.value = value.Judul
+        inputDeskripsi.value = value.Deskripsi
+        inputTanggal.value = value.Tanggal
+        editID = key
+        editPrio = value.Prioritas
+        addTask.textContent = 'Update'
+    }
+
+    ul.appendChild(garis)
+    ul.appendChild(prioritas)
+    ul.appendChild(buttonDel)
+    ul.appendChild(buttonEdit)
+    ul.appendChild(judul)
+    ul.appendChild(deskripsi)
+    ul.appendChild(tanggal)
+    buttonDel.appendChild(imgDel)
+    buttonEdit.appendChild(imgEdit)
+    div_item.appendChild(ul)
+}
+
+function showData() {
+    const dbref = ref(db)
+    div_item.innerHTML = ''
+    
+    for (let prio = 1; prio <= 3; prio++) {
+        get(child(dbref, 'todo/' + prio))
+        .then((snap) => {
+            if (snap.exists()) {
+                snap.forEach((child) => {
+                    getData(child)
+                })
+            } else {
+                console.log('data tidak ditemukan')
+            }
+        })
+        .catch((error) => {
+            console.log(error.message)
+        })
+    }
+}
+
+function editData(id, prio) {
+    let newPrio = inputPrioritas.value
+
+    if (newPrio !== prio) {
+        remove(ref(db, 'todo/' + prio + '/' +id))
+        .then(() => {
+            const newRef = ref(db, 'todo/' + inputPrioritas.value)
+            const newChildRef = push(newRef)
+
+            set(newChildRef, {
+                Judul: inputJudul.value,
+                Deskripsi: inputDeskripsi.value,
+                Tanggal: inputTanggal.value,
+                Prioritas: inputPrioritas.value
+            })
+            .then(() => {
+                alert('Data berhasil diperbarui')
+                fclosePopup()
+                resetForm()
+                showData()
+            })
+            .catch((error) => {
+                alert(error.message)
+            }) 
+        })
+    } else {
+        update(ref(db, 'todo/' + prio + '/' + id), {
+            Judul: inputJudul.value,
+            Deskripsi: inputDeskripsi.value,
+            Tanggal: inputTanggal.value
+        })
+        .then(() => {
+            alert('Data berhasil diperbarui')
+            fclosePopup()
+            resetForm()
+            showData()
+        })
+        .catch((error) => {
+            alert(error.message)
+        })
+    }
+}
+
+function resetForm() {
+    inputJudul.value = ''
+    inputDeskripsi.value = ''
+    inputTanggal.value = ''
+    inputPrioritas.value = '1'
+    addTask.textContent = 'Add task'
+    editID = null
+    editPrio = null
+}
+
+addTask.addEventListener('click', addData)
+window.addEventListener('load', showData)
