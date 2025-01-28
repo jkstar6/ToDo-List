@@ -116,6 +116,24 @@ nav h3{
     margin: 4px
 }
 
+.checkBtn{
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin-top: 15px;
+    position: absolute;
+    left: 445px;
+}
+
+.checkBtn:checked::after{
+    content: "✔";
+    position: relative;
+    bottom: 3px;
+    right: 0px;
+}
+
 /* popup add */
 
 .popup{

@@ -81,6 +81,12 @@ function getData(catchChild) {
     const key = catchChild.key
     const value = catchChild.val()
 
+    // checkbox
+    let buttonCheck = document.createElement('input')
+    buttonCheck.type = 'checkbox'
+    buttonCheck.value = 'done'
+    buttonCheck.classList = 'checkBtn'
+
     let ul = document.createElement('ul')
     let garis = document.createElement('li')
     let judul = document.createElement('h3')
@@ -128,6 +134,7 @@ function getData(catchChild) {
         addTask.textContent = 'Update'
     }
 
+    ul.appendChild(buttonCheck)
     ul.appendChild(garis)
     ul.appendChild(prioritas)
     ul.appendChild(buttonDel)
