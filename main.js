@@ -52,6 +52,11 @@ let editID = null
 let editPrio = null
 
 function addData() {
+    if (inputJudul.value === '' || inputTanggal.value === '') {
+        alert('Judul dan Tanggal tidak boleh kosong!');
+        return;
+    }
+
     if (editID) {
         editData(editID, editPrio)
     } else {
@@ -198,7 +203,6 @@ function checkData(id, prio, up) {
             Prioritas: up
         })
         .then(() => {
-            alert('tugas sudah selesai')
             resetForm()
             showData()
             showDataDone()
@@ -285,6 +289,11 @@ function getDataDone(catchChild) {
 }
 
 function editData(id, prio) {
+    if (inputJudul.value === '' || inputTanggal.value === '') {
+        alert('Judul dan Tanggal tidak boleh kosong!');
+        return;
+    }
+
     let newPrio = inputPrioritas.value
 
     if (newPrio !== prio) {

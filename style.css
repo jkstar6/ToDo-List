@@ -129,6 +129,7 @@ nav h3{
     margin-top: 15px;
     position: absolute;
     left: 445px;
+    cursor: pointer;
 }
 
 .checkBtn:checked::after{
@@ -136,6 +137,11 @@ nav h3{
     position: relative;
     bottom: 3px;
     right: 0px;
+}
+
+.checkBtn:disabled{
+    cursor: not-allowed;
+    opacity: 0.5;
 }
 
 .div_done li{
