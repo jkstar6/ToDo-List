@@ -47,6 +47,7 @@ let inputTanggal = document.getElementById('inputTanggal')
 let inputPrioritas = document.getElementById('inputPrioritas')
 let addTask = document.querySelector('.addTask')
 let div_item = document.querySelector('.div_item')
+let div_done = document.querySelector('.div_done')
 let editID = null
 let editPrio = null
 
@@ -77,15 +78,30 @@ function addData() {
     }
 }
 
+function showData() {
+    const dbref = ref(db)
+    div_item.innerHTML = ''
+    
+    for (let prio = 1; prio <= 3; prio++) {
+        get(child(dbref, 'todo/' + prio))
+        .then((snap) => {
+            if (snap.exists()) {
+                snap.forEach((child) => {
+                    getData(child)
+                })
+            } else {
+                console.log('data tidak ditemukan')
+            }
+        })
+        .catch((error) => {
+            console.log(error.message)
+        })
+    }
+}
+
 function getData(catchChild) {
     const key = catchChild.key
     const value = catchChild.val()
-
-    // checkbox
-    let buttonCheck = document.createElement('input')
-    buttonCheck.type = 'checkbox'
-    buttonCheck.value = 'done'
-    buttonCheck.classList = 'checkBtn'
 
     let ul = document.createElement('ul')
     let garis = document.createElement('li')
@@ -98,9 +114,31 @@ function getData(catchChild) {
     deskripsi.innerHTML = value.Deskripsi
     tanggal.innerHTML = 'untuk tanggal ' + value.Tanggal
     prioritas.innerHTML = 'Priority ' + value.Prioritas
-
+    
     garis.classList.add('line')
     tanggal.classList.add('date')
+    
+    // checkbox
+    let buttonCheck = document.createElement('input')
+    buttonCheck.type = 'checkbox'
+    buttonCheck.value = 'done'
+    buttonCheck.classList = 'checkBtn'
+    buttonCheck.addEventListener('change', function () {
+        if (buttonCheck.checked) {
+            if (confirm('yakin ingin menyelesaikan tugas?')) {
+                buttonCheck.disabled = true
+                inputJudul.value = value.Judul
+                inputDeskripsi.value = value.Deskripsi
+                inputTanggal.value = value.Tanggal
+                let checkID = key
+                let checkPrio = value.Prioritas
+                let updatePrio = buttonCheck.value
+                checkData(checkID, checkPrio, updatePrio)
+            } else {
+                buttonCheck.checked = false
+            }
+        }
+    })
 
     // tombol hapus
     let buttonDel = document.createElement('button')
@@ -118,7 +156,7 @@ function getData(catchChild) {
             })
         }
     }
-
+    
     // tombol edit
     let buttonEdit = document.createElement('button')
     let imgEdit = document.createElement('img')
@@ -147,25 +185,106 @@ function getData(catchChild) {
     div_item.appendChild(ul)
 }
 
-function showData() {
-    const dbref = ref(db)
-    div_item.innerHTML = ''
-    
-    for (let prio = 1; prio <= 3; prio++) {
-        get(child(dbref, 'todo/' + prio))
-        .then((snap) => {
-            if (snap.exists()) {
-                snap.forEach((child) => {
-                    getData(child)
-                })
-            } else {
-                console.log('data tidak ditemukan')
-            }
+function checkData(id, prio, up) {
+    remove(ref(db, 'todo/' + prio + '/' + id))
+    .then(() => {
+        const newRef = ref(db, 'done/')
+        const newChildRef = push(newRef)
+
+        set(newChildRef, {
+            Judul: inputJudul.value,
+            Deskripsi: inputDeskripsi.value,
+            Tanggal: inputTanggal.value,
+            Prioritas: up
+        })
+        .then(() => {
+            alert('tugas sudah selesai')
+            resetForm()
+            showData()
+            showDataDone()
         })
         .catch((error) => {
             console.log(error.message)
         })
+    })
+}
+
+function showDataDone() {
+    const dbref = ref(db)
+    div_done.innerHTML = ''
+    
+    get(child(dbref, 'done'))
+    .then((snap) => {
+        if (snap.exists()) {
+            snap.forEach((child) => {
+                getDataDone(child)
+            })
+        } else {
+            console.log('data tidak ditemukan')
+        }
+    })
+    .catch((error) => {
+        console.log(error.message)
+    })
+}
+
+function getDataDone(catchChild) {
+    const key = catchChild.key
+    const value = catchChild.val()
+
+    let h2 = document.createElement('h2')
+    let ul = document.createElement('ul')
+    let garis = document.createElement('li')
+    let judul = document.createElement('h3')
+    let deskripsi = document.createElement('li')
+    let tanggal = document.createElement('li')
+    let prioritas = document.createElement('p')
+    
+    h2.innerHTML = 'Tugas selesai'
+    judul.innerHTML = value.Judul
+    deskripsi.innerHTML = value.Deskripsi
+    tanggal.innerHTML = 'untuk tanggal ' + value.Tanggal
+    prioritas.innerHTML = value.Prioritas
+    
+    garis.classList.add('line')
+    tanggal.classList.add('date')
+
+    // checkbox
+    let buttonCheck = document.createElement('input')
+    buttonCheck.type = 'checkbox'
+    buttonCheck.value = 'done'
+    buttonCheck.checked = true
+    buttonCheck.disabled = true
+    buttonCheck.classList = 'checkBtn'
+
+    // tombol hapus
+    let buttonDel = document.createElement('button')
+    let imgDel = document.createElement('img')
+    imgDel.src = './img/icons-delete-button.png'
+    buttonDel.classList.add('delBtn')
+    buttonDel.onclick = function () {
+        if(confirm('yakin ingin menghapus tugas selesai?')) {
+            remove(ref(db, 'done/' + key))
+            .then(() => {
+                showData()
+                showDataDone()
+            })
+            .catch((error) => {
+                alert(error.message)
+            })
+        }
     }
+
+    ul.appendChild(buttonCheck)
+    ul.appendChild(garis)
+    ul.appendChild(prioritas)
+    ul.appendChild(buttonDel)
+    ul.appendChild(judul)
+    ul.appendChild(deskripsi)
+    ul.appendChild(tanggal)
+    buttonDel.appendChild(imgDel)
+    div_done.appendChild(h2)
+    div_done.appendChild(ul)
 }
 
 function editData(id, prio) {
@@ -223,3 +342,4 @@ function resetForm() {
 
 addTask.addEventListener('click', addData)
 window.addEventListener('load', showData)
+window.addEventListener('load', showDataDone)

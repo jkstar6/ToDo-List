@@ -134,6 +134,23 @@ nav h3{
     right: 0px;
 }
 
+.div_done{
+    padding-top: 100px;
+}
+.div_done li{
+    list-style-type: none;
+}
+.div_done p{
+    margin-top: 1.5px;
+    font-size: 14px;
+    text-align: center;
+    position: absolute;
+    right: 270px;
+    border: 1px solid orangered;
+    border-radius: 15px;
+    width: 70px;
+}
+
 /* popup add */
 
 .popup{
