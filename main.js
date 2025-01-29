@@ -40,6 +40,38 @@ const fclosePopup = () => {
 addBtn.addEventListener('click', fpopup)
 closeBtn.addEventListener('click', fclosePopup)
 
+// dark/light mode
+let modeChange = document.getElementById('modeChange')
+
+let body = document.body
+let nav = document.querySelector('.nav')
+
+modeChange.addEventListener('click', function() {
+    if (modeChange.dataset.mode === 'light') {
+        modeChange.dataset.mode = 'dark'
+        modeChange.innerHTML = 'Dark mode <img src="img/icons-dark.png" alt="light-icons" id="imgMode">'
+        modeChange.style.background = '#FFFFFF'
+        modeChange.style.color = '#18181A'
+        body.style.background = '#FFFFFF'
+        body.style.color = '#18181A'
+        nav.style.background = '#333'
+        addBtn.style.background = '#FFFFFF'
+        addBtn.style.color = '#18181A'
+    } else {
+        modeChange.dataset.mode = 'light'
+        modeChange.innerHTML = 'Light mode <img src="img/icons-light.png" alt="light-icons" id="imgMode">'
+        modeChange.style.background = '#18181A'
+        modeChange.style.color = '#FFFFFF'
+        body.style.background = '#18181A'
+        body.style.color = '#FFFFFF'
+        nav.style.background = '#151516'
+        addBtn.style.background = '#18181A'
+        addBtn.style.color = '#FFFFFF'
+    }
+})
+
+
+
 // CRUD
 let inputJudul = document.getElementById('inputJudul')
 let inputDeskripsi = document.getElementById('inputDeskripsi')

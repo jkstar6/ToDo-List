@@ -21,23 +21,20 @@ body{
     height: 100vh;
     float: left;
     flex: 0.24;
-    padding: 20px 0 0 0px;
-    background-color: #151516;
+    background: #151516;
 }
 
 nav h3{
+    padding-top: 20px;
     padding-left: 20px;
-    color: #46BAC0;
+    color: #E4609B;
 }
 
 .li-todo{
     background-color: #46BAC0;
     padding: 8px 10px;
     border-radius: 5px;
-}
-
-.li-todo:hover{
-    background-color: #FFFFFF;
+    color: #FFFFFF;
 }
 
 .ul-nav{
@@ -51,6 +48,32 @@ nav h3{
     padding: 50px 200px 50px 200px;
     float: left;
     flex: 0.76;
+    position: relative;
+}
+
+#modeChange{
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    padding: 7px 7px 5px 7px;
+    border: none;
+    background: #18181A;
+    color: #FFFFFF;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    border-radius: 12px;
+    transition: 0.2s;
+}
+#modeChange:hover{
+    border: 1px solid #46BAC0;
+}
+
+#imgMode{
+    position: relative;
+    width: 20px;
+    bottom: 1px;
+    left: 5px;
 }
 
 #addBtn span{
@@ -102,7 +125,7 @@ nav h3{
 }
 
 .line{
-    background-color: rgb(218, 218, 218);
+    background-color: rgb(199, 199, 199);
     padding: 0.5px;
     width: 100%;
     margin: 10px 0 5px 0;
@@ -118,7 +141,7 @@ nav h3{
     cursor: pointer;
 }
 .delBtn:hover{
-    background-color: #FFFFFF;
+    background-color: #46BAC0;
 }
 .delBtn img{
     width: 19px;
@@ -135,7 +158,7 @@ nav h3{
     cursor: pointer;
 }
 .editBtn:hover{
-    background-color: #FFFFFF;
+    background-color: #E4609B;
 }
 .editBtn img{
     width: 18px;
@@ -148,9 +171,9 @@ nav h3{
     height: 14px;
     border: 1px solid #46BAC0;
     border-radius: 50%;
-    margin-top: 15px;
+    margin-top: 14px;
     position: absolute;
-    left: 445px;
+    left: 170px;
     cursor: pointer;
 }
 
@@ -307,4 +330,66 @@ nav h3{
     font-size: 16px;
     margin: 10px 0;
     color: #333;
+}
+
+@media screen and (max-width: 1200px) {
+    .nav{
+        flex: 0.3;
+    }
+    .container{
+        padding: 50px 100px 50px 100px;
+        flex: 0.7;
+    }
+    .editBtn{
+        right: 130px;
+    }
+    .delBtn{
+        right: 100px;
+    }
+    .checkBtn{
+        left: 75px;
+    }
+    .div_item p{
+        right: 170px;
+    }
+    .div_done p{
+        right: 140px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container h1{
+        font-size: 25px;
+    }
+    .container h2{
+        font-size: 20px;
+    }
+    .nav{
+        display: none;
+    }
+    .container{
+        flex: 1;
+        padding: 50px;
+    }
+    .editBtn{
+        right: 80px;
+    }
+    .delBtn{
+        right: 50px;
+    }
+    .checkBtn{
+        margin-top: 13px;
+        left: 23px;
+    }
+    .div_item p{
+        margin-top: 43px;
+        right: 50px;
+    }
+    .div_done p{
+        margin-top: 42px;
+        right: 50px;
+    }
+    .popup-content{
+        width: 350px;
+    }
 }
