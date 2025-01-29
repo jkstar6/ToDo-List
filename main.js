@@ -45,6 +45,9 @@ let modeChange = document.getElementById('modeChange')
 
 let body = document.body
 let nav = document.querySelector('.nav')
+let popupContent = document.querySelector('.popup-content')
+let inputJudul = document.getElementById('inputJudul')
+let inputDeskripsi = document.getElementById('inputDeskripsi')
 
 modeChange.addEventListener('click', function() {
     if (modeChange.dataset.mode === 'light') {
@@ -52,29 +55,43 @@ modeChange.addEventListener('click', function() {
         modeChange.innerHTML = 'Dark mode <img src="img/icons-dark.png" alt="light-icons" id="imgMode">'
         modeChange.style.background = '#FFFFFF'
         modeChange.style.color = '#18181A'
+        modeChange.onmouseover = function() {modeChange.style.background = '#46BAC0'}
+        modeChange.onmouseout = function() {modeChange.style.background = '#FFFFFF'}
         body.style.background = '#FFFFFF'
         body.style.color = '#18181A'
         nav.style.background = '#333'
-        addBtn.style.background = '#FFFFFF'
         addBtn.style.color = '#18181A'
+        addBtn.onmouseover = function() {addBtn.style.color = '#46BAC0'}
+        addBtn.onmouseout = function() {addBtn.style.color = '#18181A'}
+        popupContent.style.background = '#FFFFFF'
+        inputJudul.style.background = '#FFFFFF'
+        inputJudul.style.color = '#18181A'
+        inputDeskripsi.style.background = '#FFFFFF'
+        inputDeskripsi.style.color = '#18181A'
     } else {
         modeChange.dataset.mode = 'light'
         modeChange.innerHTML = 'Light mode <img src="img/icons-light.png" alt="light-icons" id="imgMode">'
         modeChange.style.background = '#18181A'
         modeChange.style.color = '#FFFFFF'
+        modeChange.onmouseover = function() {modeChange.style.background = '#46BAC0'}
+        modeChange.onmouseout = function() {modeChange.style.background = '#18181A'}
         body.style.background = '#18181A'
         body.style.color = '#FFFFFF'
         nav.style.background = '#151516'
-        addBtn.style.background = '#18181A'
         addBtn.style.color = '#FFFFFF'
+        addBtn.onmouseover = function() {addBtn.style.color = '#46BAC0'}
+        addBtn.onmouseout = function() {addBtn.style.color = '#FFFFFF'}
+        popupContent.style.background = '#18181A'
+        inputJudul.style.background = '#18181A'
+        inputJudul.style.color = '#FFFFFF'
+        inputDeskripsi.style.background = '#18181A'
+        inputDeskripsi.style.color = '#FFFFFF'
     }
 })
 
 
 
 // CRUD
-let inputJudul = document.getElementById('inputJudul')
-let inputDeskripsi = document.getElementById('inputDeskripsi')
 let inputTanggal = document.getElementById('inputTanggal')
 let inputPrioritas = document.getElementById('inputPrioritas')
 let addTask = document.querySelector('.addTask')
@@ -126,8 +143,6 @@ function showData() {
                 snap.forEach((child) => {
                     getData(child)
                 })
-            } else {
-                console.log('data tidak ditemukan')
             }
         })
         .catch((error) => {

@@ -9,7 +9,7 @@ body{
     height: 100vh;
     background: #18181A;
     color: #FFFFFF;
-    transition: 0.1s;
+    transition: 0.4s;
 }
 
 .nav, .container{
@@ -23,7 +23,7 @@ body{
     float: left;
     flex: 0.24;
     background: #151516;
-    transition: 0.1s;
+    transition: 0.4s;
 }
 
 nav h3{
@@ -68,6 +68,7 @@ nav h3{
     transition: 0.2s;
 }
 #modeChange:hover{
+    background: #46BAC0;
     border: 1px solid #46BAC0;
 }
 
@@ -93,10 +94,10 @@ nav h3{
     width: fit-content;
     height: 30px;
     border: none;
-    background-color: #18181A;
+    background: transparent;
     color: #FFFFFF;
     cursor: pointer;
-    transition: 0.1s;
+    transition: 0s;
 }
 #addBtn:hover{
     color: #46BAC0;
@@ -273,11 +274,11 @@ nav h3{
 
 #inputJudul::placeholder{
     font-weight: 600;
-    color: #e9e9e9;
+    color: #bebebe;
 }
 
 #inputDeskripsi::placeholder{
-    color: #e9e9e9;
+    color: #bebebe;
 }
 
 #inputDeskripsi{
@@ -297,7 +298,7 @@ nav h3{
 }
 
 #inputTanggal:hover, #inputPrioritas:hover{
-    background-color: #FFFFFF;
+    background-color: #41abb1;
 }
 
 
@@ -326,7 +327,7 @@ nav h3{
 }
 
 .addTask:hover{
-    background: #e9e9e9;
+    background: #ca4d85;
 }
 
 #displayPrioritas {
