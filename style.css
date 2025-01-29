@@ -9,6 +9,7 @@ body{
     height: 100vh;
     background: #18181A;
     color: #FFFFFF;
+    transition: 0.1s;
 }
 
 .nav, .container{
@@ -22,6 +23,7 @@ body{
     float: left;
     flex: 0.24;
     background: #151516;
+    transition: 0.1s;
 }
 
 nav h3{
@@ -94,6 +96,7 @@ nav h3{
     background-color: #18181A;
     color: #FFFFFF;
     cursor: pointer;
+    transition: 0.1s;
 }
 #addBtn:hover{
     color: #46BAC0;
