@@ -299,6 +299,10 @@ nav h3{
     background-color: #41abb1;
 }
 
+#inputDeskripsi::placeholder{
+    color: #bebebe;
+}
+
 
 .lineForm{
     background-color: rgb(218, 218, 218);
