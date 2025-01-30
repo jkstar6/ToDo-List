@@ -48,6 +48,7 @@ let nav = document.querySelector('.nav')
 let popupContent = document.querySelector('.popup-content')
 let inputJudul = document.getElementById('inputJudul')
 let inputDeskripsi = document.getElementById('inputDeskripsi')
+let labelTanggal = document.getElementById('labelTanggal')
 
 modeChange.addEventListener('click', function() {
     if (modeChange.dataset.mode === 'light') {
@@ -68,6 +69,7 @@ modeChange.addEventListener('click', function() {
         inputJudul.style.color = '#18181A'
         inputDeskripsi.style.background = '#FFFFFF'
         inputDeskripsi.style.color = '#18181A'
+        labelTanggal.style.color = '#18181A'
     } else {
         modeChange.dataset.mode = 'light'
         modeChange.innerHTML = 'Light mode <img src="img/icons-light.png" alt="light-icons" id="imgMode">'
@@ -86,6 +88,7 @@ modeChange.addEventListener('click', function() {
         inputJudul.style.color = '#FFFFFF'
         inputDeskripsi.style.background = '#18181A'
         inputDeskripsi.style.color = '#FFFFFF'
+        labelTanggal.style.color = '#FFFFFF'
     }
 })
 
