@@ -391,7 +391,7 @@ nav h3{
     .container{
         margin-left: 0;
         flex: 1;
-        padding: 80px 50px 50px 50px;
+        padding: 80px 40px 50px 60px;
     }
     .editBtn{
         right: 80px;
