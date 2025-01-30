@@ -1,2 +1,2 @@
-# project-itc
-project ITC
+# ToDo-List
+simple ToDo-List app
