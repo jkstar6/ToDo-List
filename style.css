@@ -224,8 +224,6 @@ nav h3{
     text-decoration: line-through;
 }
 
-/* popup add */
-
 .popup{
     z-index: 999;
     background-color: rgba(0, 0, 0, 0.5);
