@@ -189,7 +189,7 @@ nav h3{
 }
 
 .checkBtn:checked::after{
-    color: #FFFFFF;
+    color: #919191;
     content: "✔";
     position: relative;
     bottom: 3px;
