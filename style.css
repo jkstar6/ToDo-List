@@ -394,10 +394,10 @@ nav h3{
         padding: 80px 40px 50px 60px;
     }
     .editBtn{
-        right: 80px;
+        right: 65px;
     }
     .delBtn{
-        right: 50px;
+        right: 35px;
     }
     .checkBtn{
         margin-top: 13px;
@@ -405,11 +405,11 @@ nav h3{
     }
     .div_item p{
         margin-top: 43px;
-        right: 50px;
+        right: 35px;
     }
     .div_done p{
         margin-top: 42px;
-        right: 50px;
+        right: 35px;
     }
     .popup-content{
         height: 205px;
