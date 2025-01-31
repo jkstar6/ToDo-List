@@ -308,6 +308,7 @@ function getDataDone(catchChild) {
     buttonCheck.checked = true
     buttonCheck.disabled = true
     buttonCheck.classList = 'checkBtn'
+    buttonCheck.style.borderColor = '#919191'
 
     // tombol hapus
     let buttonDel = document.createElement('button')
