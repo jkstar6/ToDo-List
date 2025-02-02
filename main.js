@@ -105,8 +105,8 @@ let editPrio = null
 
 function addData() {
     if (inputJudul.value === '' || inputTanggal.value === '') {
-        alert('Judul dan Tanggal tidak boleh kosong!');
-        return;
+        alert('Judul dan Tanggal tidak boleh kosong!')
+        return
     }
 
     if (editID) {
@@ -341,8 +341,8 @@ function getDataDone(catchChild) {
 
 function editData(id, prio) {
     if (inputJudul.value === '' || inputTanggal.value === '') {
-        alert('Judul dan Tanggal tidak boleh kosong!');
-        return;
+        alert('Judul dan Tanggal tidak boleh kosong!')
+        return
     }
 
     let newPrio = inputPrioritas.value
