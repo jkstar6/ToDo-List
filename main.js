@@ -360,7 +360,7 @@ function editData(id, prio) {
                 Prioritas: inputPrioritas.value
             })
             .then(() => {
-                alert('Data berhasil diperbarui')
+                console.log('Data berhasil diperbarui')
                 fclosePopup()
                 resetForm()
                 showData()
@@ -376,7 +376,7 @@ function editData(id, prio) {
             Tanggal: inputTanggal.value
         })
         .then(() => {
-            alert('Data berhasil diperbarui')
+            console.log('Data berhasil diperbarui')
             fclosePopup()
             resetForm()
             showData()
